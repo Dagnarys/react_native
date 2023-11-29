@@ -28,15 +28,16 @@ const TextName = styled.Text`
 `;
 
 
-export const Driver = ({full_name, passport_number, minioImageUrl}) => {
+export const Driver = ({full_name, passport_number, minioImageUrl,address,email}) => {
         return(
                 <DriverView>
-                    {
 
-                    }
-                        <DriverImage source = {{ url:minioImageUrl}}/>
-                        <TextName>{full_name}</TextName>
-                        <TextName>{passport_number}</TextName>
+                    <DriverImage source = {{ url:minioImageUrl}}/>
+                    <TextName>{full_name}</TextName>
+                    <TextName>{passport_number}</TextName>
+                    <TextName>{address}</TextName>
+                    <TextName>{email}</TextName>
+
                 </DriverView>
         )
 
