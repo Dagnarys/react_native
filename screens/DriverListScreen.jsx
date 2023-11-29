@@ -64,7 +64,7 @@ export const  DriverListScreen =({navigation})=> {
 
 
     return (
-        <ImageBackground source={{uri:'https://www.creativefabrica.com/wp-content/uploads/2022/11/25/Car-Insurance-icon-Graphics-48467473-1-1-580x387.jpg'}}
+        <ImageBackground source={{uri:'http://192.168.1.32:45243/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9jYXIuanBn&version_id=null'}}
                          style={styles.backgroundImage}
                          onError={(error) => console.error('Image load error:', error.nativeEvent.error)}>
 
