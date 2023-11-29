@@ -58,8 +58,7 @@ export default function App() {
                 refreshControl={<RefreshControl refreshing={isLoading} onRefresh={fetchDrivers}/>}
                 data = {drivers}
                 renderItem={({item}) => (
-                    <TouchableOpacity onPress={()=>alert('asd')}>
-
+                    <TouchableOpacity>
                     <Driver full_name={item.full_name} passport_number = {item.passport_number} minioImageUrl = {item.image}/>
                     </TouchableOpacity>
                 )}
