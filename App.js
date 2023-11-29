@@ -1,49 +1,71 @@
 import React from 'react';
-import { StyleSheet, StatusBar,Text, Image, View } from 'react-native';
-import styled from 'styled-components/native';
+import {
+    StyleSheet,
+    Text,
+    FlatList,
+    View,
+    ActivityIndicator,
+    RefreshControl,
+    TouchableOpacity
+} from 'react-native';
 
-const Driver = styled.View`
-    position: relative;
-    display: flex;
-    margin: 10px;
-    padding: 10px;
-    margin-top:30px;
-    border: 2px solid red;
-    max-height: 100%;
-    width: 395px;
+import {Driver} from "./components/DriverCard";
+import axios from "axios";
 
-    border-radius: 10px; /* Увеличил радиус закругления углов */
-    /*background-color: rgb(206, 170, 170);*/
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Добавил тень для карточек */
-    transition: transform 0.2s ease-in-out; /* Анимация при наведении курсора */
-`;
-const DriverImage = styled.Image`
-    width:150px;
-    height:150px;
-    border-radius:12px;
-    margin-right:12px;
 
-`;
-const TextName = styled.Text`
-    font-size:16px;
-    font-weight:700;
-`;
 export default function App() {
-  return (
-    <View>
-        <Driver>
-        <DriverImage source = {{ url:'https://i.stack.imgur.com/cXbga.png'}}/>
-        <TextName>Asd</TextName>
-        </Driver>
-    </View>
-  );
+    const [isLoading,setIsLoading]=React.useState(true);
+    const [drivers, setDrivers] = React.useState([]);
+
+    const fetchDrivers =() =>{
+        setIsLoading(true);
+        axios
+            .get('http://192.168.1.32:8000/api/drivers/search/')
+            .then(response => {
+                // Access the drivers array from the response data
+                const fetchedDrivers = response.data.drivers;
+                setDrivers(fetchedDrivers);
+            })
+            .catch(err => {
+                console.log(err);
+                alert('Error GET drivers');
+            }).finally(()=>{
+                setIsLoading(false);
+        });
+
+    }
+
+    React.useEffect(fetchDrivers,[]);
+
+
+    if(isLoading){
+        return <View style={{
+            flex:1,
+            justifyContent:'center',
+            alignItems:'center',
+        }}>
+            <ActivityIndicator size="large"/>
+            <Text>Загружается..</Text>
+
+        </View>
+    }
+
+
+    return (
+        <View>
+
+            <FlatList
+                refreshControl={<RefreshControl refreshing={isLoading} onRefresh={fetchDrivers}/>}
+                data = {drivers}
+                renderItem={({item}) => (
+                    <TouchableOpacity onPress={()=>alert('asd')}>
+
+                    <Driver full_name={item.full_name} passport_number = {item.passport_number} minioImageUrl = {item.image}/>
+                    </TouchableOpacity>
+                )}
+            />
+        </View>
+    );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
