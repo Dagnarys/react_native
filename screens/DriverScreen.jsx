@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components/native";
 import axios from "axios";
-import {ActivityIndicator, Text, View} from "react-native";
+import {ActivityIndicator, ImageBackground, StyleSheet, Text, View} from "react-native";
 import {Driver} from "../components/DriverCard";
 
 const DriverView = styled.View`
@@ -81,13 +81,27 @@ export const DriverScreen = ({route,navigation}) => {
     }
 
     return (
-        <Driver
-            full_name={driver.full_name}
-            passport_number={driver.passport_number}
-            minioImageUrl={driver.image}
-            address = {driver.address}
-            email={driver.email}
+        <ImageBackground source={{uri:'http://192.168.1.32:45243/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9jYXIuanBn&version_id=null'}}
+                         style={styles.backgroundImage}
+                         onError={(error) => console.error('Image load error:', error.nativeEvent.error)}>
+            <Driver
+                full_name={driver.full_name}
+                passport_number={driver.passport_number}
+                minioImageUrl={driver.image}
+                address = {driver.address}
+                email={driver.email}
 
-        />
+            />
+        </ImageBackground>
     );
 };
+
+const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover', // or 'stretch' or 'contain'
+        justifyContent: 'center',
+        alignItems: 'center',
+
+    }
+});

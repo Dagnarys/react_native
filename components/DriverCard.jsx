@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import {ImageBackground, StyleSheet} from "react-native";
 const DriverView = styled.View`
     position: relative;
     display: flex;
@@ -9,6 +10,7 @@ const DriverView = styled.View`
     border: 2px solid red;
     max-height: 100%;
     width: 395px;
+    background-image:url("http://192.168.1.32:45243/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9iYy1jYXJkMi5qcGc=&version_id=null");
 
     border-radius: 10px; /* Увеличил радиус закругления углов */
     /*background-color: rgb(206, 170, 170);*/
@@ -30,7 +32,8 @@ const TextName = styled.Text`
 
 export const Driver = ({full_name, passport_number, minioImageUrl,address,email}) => {
         return(
-                <DriverView>
+
+            <DriverView>
 
                     <DriverImage source = {{ url:minioImageUrl}}/>
                     <TextName>{full_name}</TextName>
@@ -39,7 +42,10 @@ export const Driver = ({full_name, passport_number, minioImageUrl,address,email}
                     <TextName>{email}</TextName>
 
                 </DriverView>
+
         )
 
 
 }
+
+
