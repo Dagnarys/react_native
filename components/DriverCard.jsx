@@ -4,13 +4,14 @@ import {ImageBackground, StyleSheet} from "react-native";
 const DriverView = styled.View`
     position: relative;
     display: flex;
-    margin: 10px;
+    
+    
     padding: 10px;
-    margin-top:30px;
     border: 2px solid red;
     max-height: 100%;
     width: 395px;
-    background-image:url("http://192.168.1.32:45243/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9iYy1jYXJkMi5qcGc=&version_id=null");
+    padding-bottom: 15px;
+    background-repeat: no-repeat;
 
     border-radius: 10px; /* Увеличил радиус закругления углов */
     /*background-color: rgb(206, 170, 170);*/
@@ -28,12 +29,24 @@ const TextName = styled.Text`
     font-size:16px;
     font-weight:700;
 `;
+const DriverBackground = styled(ImageBackground)`
+  background:rgba(255, 255, 255, 0.1) url("http://192.168.1.32:45243/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9iYy1jYXJkMi5qcGc=&version_id=null") no-repeat;
+  background-size: cover; /* This will make sure the background image covers the entire component */
+  /* Add more styles as needed */
+  /* For example: */
+  width: 395px;
+  
+  
+  
+  /* Any other styles you want to apply */
+
+`;
 
 
 export const Driver = ({full_name, passport_number, minioImageUrl,address,email}) => {
         return(
-
-            <DriverView>
+            <DriverBackground>
+            <DriverView >
 
                     <DriverImage source = {{ url:minioImageUrl}}/>
                     <TextName>{full_name}</TextName>
@@ -42,6 +55,7 @@ export const Driver = ({full_name, passport_number, minioImageUrl,address,email}
                     <TextName>{email}</TextName>
 
                 </DriverView>
+        </DriverBackground>
 
         )
 
