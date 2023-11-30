@@ -24,7 +24,7 @@ export const  DriverListScreen =({navigation})=> {
     const fetchDrivers =() =>{
         setIsLoading(true);
         axios
-            .get('http://192.168.1.32:8000/api/drivers/search/')
+            .get('http://172.20.10.6:8000/api/drivers/search/')
             .then(response => {
                 // Access the drivers array from the response data
                 const fetchedDrivers = response.data.drivers;
@@ -64,9 +64,9 @@ export const  DriverListScreen =({navigation})=> {
 
 
     return (
-        <ImageBackground source={{uri:'http://192.168.1.32:45243/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9jYXIuanBn&version_id=null'}}
-                         style={styles.backgroundImage}
-                         onError={(error) => console.error('Image load error:', error.nativeEvent.error)}>
+        // <ImageBackground source={{uri:'http://172.20.10.6:45243/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9jYXIuanBn&version_id=null'}}
+        //                  style={styles.backgroundImage}
+        //                  onError={(error) => console.error('Image load error:', error.nativeEvent.error)}>
 
         <View>
 
@@ -83,7 +83,7 @@ export const  DriverListScreen =({navigation})=> {
                 />
 
             </View>
-        </ImageBackground>
+        // </ImageBackground>
     );
 }
 

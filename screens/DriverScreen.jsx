@@ -15,9 +15,8 @@ const DriverView = styled.View`
     width: 395px;
 
     border-radius: 10px; /* Увеличил радиус закругления углов */
-    /*background-color: rgb(206, 170, 170);*/
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Добавил тень для карточек */
-    transition: transform 0.2s ease-in-out; /* Анимация при наведении курсора */
+
+  
 `;
 const DriverImage = styled.Image`
     width:150px;
@@ -44,7 +43,7 @@ export const DriverScreen = ({route,navigation}) => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const response = await axios.get(`http://192.168.1.32:8000/api/drivers/${id}/`);
+                const response = await axios.get(`http://172.20.10.6:8000/api/drivers/${id}/`);
                 const fetchedDriver = response.data;
                 setDriver(fetchedDriver);
             } catch (error) {
@@ -81,9 +80,9 @@ export const DriverScreen = ({route,navigation}) => {
     }
 
     return (
-        <ImageBackground source={{uri:'http://192.168.1.32:45243/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9jYXIuanBn&version_id=null'}}
-                         style={styles.backgroundImage}
-                         onError={(error) => console.error('Image load error:', error.nativeEvent.error)}>
+        // // <ImageBackground source={{uri:'http://172.20.10.6:46539/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9iYy1jYXJkMi5qcGc=&version_id=null'}}
+        //                  style={styles.backgroundImage}
+        //                  onError={(error) => console.error('Image load error:', error.nativeEvent.error)}>
             <Driver
                 full_name={driver.full_name}
                 passport_number={driver.passport_number}
@@ -92,7 +91,7 @@ export const DriverScreen = ({route,navigation}) => {
                 email={driver.email}
 
             />
-        </ImageBackground>
+        // </ImageBackground>
     );
 };
 

@@ -30,7 +30,7 @@ const TextName = styled.Text`
     font-weight:700;
 `;
 const DriverBackground = styled(ImageBackground)`
-  background:rgba(255, 255, 255, 0.1) url("http://192.168.1.32:45243/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9iYy1jYXJkMi5qcGc=&version_id=null") no-repeat;
+  background:rgba(255, 255, 255, 0.1) url("http://127.0.0.1:46539/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9iYy1jYXJkMi5qcGc=&version_id=null") no-repeat;
   background-size: cover; /* This will make sure the background image covers the entire component */
   /* Add more styles as needed */
   /* For example: */
