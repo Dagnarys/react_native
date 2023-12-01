@@ -1,16 +1,16 @@
 
 import React,{useEffect, useState} from 'react';
 import {
-    StyleSheet,
+
     Text,
     FlatList,
     View,
     ActivityIndicator,
     RefreshControl,
-    TouchableOpacity, ImageBackground
+    TouchableOpacity,
 } from 'react-native';
 
-import {Driver} from "../components/DriverCard";
+import {DriverShort} from "../components/DriverCard";
 import axios from "axios";
 import SearchComponent from "../components/Search";
 
@@ -19,7 +19,7 @@ export const  DriverListScreen =({navigation})=> {
     const [isLoading,setIsLoading]=React.useState(true);
     const [drivers, setDrivers] = React.useState([]);
     const [filteredDrivers, setFilteredDrivers] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
+   // const [searchTerm, setSearchTerm] = useState('');
 
     const fetchDrivers =() =>{
         setIsLoading(true);
@@ -70,29 +70,32 @@ export const  DriverListScreen =({navigation})=> {
 
         <View>
 
-                <SearchComponent onSearch={handleSearch} />
-                <FlatList
+            <SearchComponent onSearch={handleSearch}/>
+            <FlatList
 
-                    refreshControl={<RefreshControl refreshing={isLoading} onRefresh={fetchDrivers}/>}
-                    data = {filteredDrivers}
-                    renderItem={({item}) => (
-                        <TouchableOpacity onPress={()=>navigation.navigate('DriverScreen',{id:item.id, title:item.title})}>
-                            <Driver full_name={item.full_name} passport_number = {item.passport_number} minioImageUrl = {item.image}/>
-                        </TouchableOpacity>
-                    )}
-                />
+                refreshControl={<RefreshControl refreshing={isLoading} onRefresh={fetchDrivers}/>}
+                data={filteredDrivers}
+                renderItem={({item}) => (
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('DriverScreen', {id: item.id, title: item.title})}>
+                        <DriverShort full_name={item.full_name} passport_number={item.passport_number}
+                                     minioImageUrl={item.image}/>
+                        {/*<Driver />*/}
+                    </TouchableOpacity>
+                )}
+            />
 
-            </View>
+        </View>
         // </ImageBackground>
     );
 }
 
-const styles = StyleSheet.create({
-    backgroundImage: {
-        flex: 1,
-        resizeMode: 'cover', // or 'stretch' or 'contain'
-        justifyContent: 'center',
-        alignItems: 'center',
-
-    }
-});
+// const styles = StyleSheet.create({
+//     backgroundImage: {
+//         flex: 1,
+//         resizeMode: 'cover', // or 'stretch' or 'contain'
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//
+//     }
+// });
