@@ -49,7 +49,6 @@ export const  DriverListScreen =({navigation})=> {
         setFilteredDrivers(filtered);
     };
 
-
     if(isLoading){
         return <View style={{
             flex:1,
@@ -64,9 +63,6 @@ export const  DriverListScreen =({navigation})=> {
 
 
     return (
-        // <ImageBackground source={{uri:'http://172.20.10.6:45243/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9jYXIuanBn&version_id=null'}}
-        //                  style={styles.backgroundImage}
-        //                  onError={(error) => console.error('Image load error:', error.nativeEvent.error)}>
 
         <View>
 
@@ -86,16 +82,8 @@ export const  DriverListScreen =({navigation})=> {
             />
 
         </View>
-        // </ImageBackground>
+
     );
 }
 
-// const styles = StyleSheet.create({
-//     backgroundImage: {
-//         flex: 1,
-//         resizeMode: 'cover', // or 'stretch' or 'contain'
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//
-//     }
-// });
+
