@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 
 const SearchComponent = ({ onSearch }) => {
@@ -16,7 +16,7 @@ const SearchComponent = ({ onSearch }) => {
                 value={searchTerm}
                 onChangeText={(text) => setSearchTerm(text)}
             />
-            <Button title="Search" onPress={handleSearch} />
+            <Button title="Поиск" onPress={handleSearch} />
         </View>
     );
 };

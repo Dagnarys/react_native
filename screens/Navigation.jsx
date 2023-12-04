@@ -2,7 +2,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {DriverListScreen} from "./DriverListScreen";
 import {DriverScreen} from "./DriverScreen";
 import {NavigationContainer} from "@react-navigation/native";
-import {ImageBackground} from "react-native";
+
 
 const Stack = createNativeStackNavigator();
 

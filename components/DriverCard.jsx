@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 
 export const Driver = ({full_name, passport_number, minioImageUrl,address,email}) => {
         return(
-            <DriverBackground source={uri("http://127.0.0.1:35107/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9iYy1jYXJkMi5qcGc=&version_id=null")}>
+            <DriverBackground>
                 <DriverView >
                     <DriverImage source = {{ url:minioImageUrl}}/>
                     <View style = {styles.textContainer}>
