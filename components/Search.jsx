@@ -1,11 +1,15 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+import {updateDriver} from "../store/SearchDriver";
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 
-const SearchComponent = ({ onSearch }) => {
-    const [searchTerm, setSearchTerm] = React.useState('');
-
-    const handleSearch = () => {
-        onSearch(searchTerm);
+export const SearchComponent = ({name_driver, updateTrigger, onUpdateTriggerChange}) => {
+    const dispatch = useDispatch();
+    const handleChange = (search_driver) => {
+        dispatch(updateDriver(search_driver));
+    };
+    const pressButton = () => {
+        onUpdateTriggerChange(true);
     };
 
     return (
@@ -13,10 +17,11 @@ const SearchComponent = ({ onSearch }) => {
             <TextInput
                 style={styles.searchInput}
                 placeholder="Поиск по фио"
-                value={searchTerm}
-                onChangeText={(text) => setSearchTerm(text)}
+                value={name_driver}
+                onChangeText={(text) => handleChange(text)}
+                onSubmitEditing={pressButton}
             />
-            <Button title="Поиск" onPress={handleSearch} />
+            {/*{ <Button title="Поиск" onPress={handleSearch} />}*/}
         </View>
     );
 };

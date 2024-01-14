@@ -12,71 +12,73 @@ import {
 
 import {DriverShort} from "../components/DriverCard";
 import axios from "axios";
-import SearchComponent from "../components/Search";
+import {SearchComponent} from "../components/Search";
+import {useSelector} from "react-redux";
+import {DOMEN} from "../Const";
 
 
 export const  DriverListScreen =({navigation})=> {
     const [isLoading,setIsLoading]=React.useState(true);
-    const [drivers, setDrivers] = React.useState([]);
-    const [filteredDrivers, setFilteredDrivers] = useState([]);
-   // const [searchTerm, setSearchTerm] = useState('');
+    const [driversList, setDriversList] = React.useState([]);
+    const [updateTrigger, setUpdateTrigger] = useState(false);
+    const name_driver = useSelector((state) => state.search_driver.name);
 
-    const fetchDrivers =() =>{
+
+    const fetchDrivers = async () => {
         setIsLoading(true);
-        axios
-            .get('http://172.20.10.6:8000/api/drivers/search/')
-            .then(response => {
-                // Access the drivers array from the response data
-                const fetchedDrivers = response.data.drivers;
-                setDrivers(fetchedDrivers);
-                setFilteredDrivers(fetchedDrivers);
-            })
-            .catch(err => {
-                console.log(err);
-                alert('Error GET drivers');
-            }).finally(()=>{
-            setIsLoading(false);
+        // Определяем параметры запроса, включая номер страницы и количество объектов на странице
+        const params = new URLSearchParams({
+            status: 'True',
+            name: name_driver,
         });
+        const url = `${DOMEN}api/drivers/search/?${params}`
+        try {
+            const response = await axios.get(url, {
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                },
+                signal: new AbortController().signal,
+            });
 
-    }
-    useEffect(fetchDrivers,[]);
+            setDriversList(response.data);
+            setIsLoading(false);
+            setUpdateTrigger(false);
 
-    const handleSearch = (searchTerm) => {
-        const searchTermLowerCase = searchTerm.toLowerCase();
-        const filtered = drivers.filter((driver) =>
-            driver.full_name.toLowerCase().includes(searchTermLowerCase)
-        );
-        setFilteredDrivers(filtered);
+            // Log the received data
+            console.log(response.data);
+        } catch (error) {
+            console.error("Ошибка!\n", error);
+        }
     };
 
-    if(isLoading){
-        return <View style={{
-            flex:1,
-            justifyContent:'center',
-            alignItems:'center',
-        }}>
-            <ActivityIndicator size="large"/>
-            <Text>Загружается..</Text>
-
-        </View>
-    }
-
+    useEffect(() => {
+        fetchDrivers()
+        if (updateTrigger) {
+            // Вызываем код или обновление, которое должно произойти после успешного удаления
+            // Например, здесь можно обновить список географических объектов или выполнить другие действия
+            setUpdateTrigger(false);
+        }
+    }, [updateTrigger])
+    const handleUpdateTriggerChange = (value) => {
+        setUpdateTrigger(value);
+    };
 
     return (
 
         <View>
 
-            <SearchComponent onSearch={handleSearch}/>
+            <SearchComponent name_driver={name_driver} updateTrigger={updateTrigger}
+                             onUpdateTriggerChange={handleUpdateTriggerChange}/>
             <FlatList
 
                 refreshControl={<RefreshControl refreshing={isLoading} onRefresh={fetchDrivers}/>}
-                data={filteredDrivers}
+                data={driversList.drivers}
                 renderItem={({item}) => (
                     <TouchableOpacity
                         onPress={() => navigation.navigate('DriverScreen', {id: item.id, title: item.title})}>
-                        <DriverShort full_name={item.full_name} passport_number={item.passport_number}
+                        <DriverShort name={item.full_name} passport_number={item.passport_number}
                                      minioImageUrl={item.image}/>
-                        {/*<Driver />*/}
+
                     </TouchableOpacity>
                 )}
             />

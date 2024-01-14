@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import {ImageBackground, StyleSheet, View} from "react-native";
+import {Image, ImageBackground, StyleSheet, View} from "react-native";
 const DriverView = styled.View`
     position: relative;
     display: flex;
@@ -29,9 +29,8 @@ const TextName = styled.Text`
     margin-bottom: 10px;
   
 `;
-const DriverBackground = styled(ImageBackground)`
-  background:rgba(255, 255, 255, 0.1) url("http://127.0.0.1:35107/api/v1/buckets/images/objects/download?preview=true&prefix=ZHJpdmVycy9iYy1jYXJkMi5qcGc=&version_id=null") no-repeat;
-  background-size: cover; /* This will make sure the background image covers the entire component */
+const DriverBackground = styled.View`
+   background-size: cover; /* This will make sure the background image covers the entire component */
   /* Add more styles as needed */
   /* For example: */
   width: 100%;
@@ -49,16 +48,18 @@ const styles = StyleSheet.create({
 });
 
 
-export const Driver = ({full_name, passport_number, minioImageUrl,address,email}) => {
+export const Driver = ({name, passport_number, minioImageUrl,address,email}) => {
         return(
             <DriverBackground>
                 <DriverView >
-                    <DriverImage source = {{ url:minioImageUrl}}/>
+                    <DriverImage source = {{ uri:minioImageUrl}}/>
                     <View style = {styles.textContainer}>
-                        <TextName>{full_name}</TextName>
+                        <TextName>{name}</TextName>
                         <TextName>{passport_number}</TextName>
                         <TextName>{address}</TextName>
                         <TextName>{email}</TextName>
+
+
                     </View>
                 </DriverView>
             </DriverBackground>
@@ -66,10 +67,10 @@ export const Driver = ({full_name, passport_number, minioImageUrl,address,email}
         )
 }
 
-const DriverShort = ({full_name, passport_number,minioImageUrl}) => {
+export const DriverShort = ({name, passport_number,minioImageUrl}) => {
     // Первый экран, где вы хотите отобразить только часть данных
     const driverData = {
-        full_name: full_name,
+        name: name,
         passport_number: passport_number,
         minioImageUrl: minioImageUrl
     };
@@ -80,10 +81,10 @@ const DriverShort = ({full_name, passport_number,minioImageUrl}) => {
 };
 
 
-const DriverFull = ({full_name, passport_number, minioImageUrl,address,email}) => {
+export const DriverFull = ({name, passport_number, minioImageUrl,address,email}) => {
     // Второй экран, где вы хотите отобразить все данные
     const driverData = {
-        full_name: full_name,
+        name: name,
         passport_number:passport_number,
         minioImageUrl: minioImageUrl,
         address: address,
@@ -95,4 +96,3 @@ const DriverFull = ({full_name, passport_number, minioImageUrl,address,email}) =
     );
 };
 
-export { DriverShort, DriverFull };
